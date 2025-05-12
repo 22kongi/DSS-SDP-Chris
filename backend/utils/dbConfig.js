@@ -1,6 +1,14 @@
 const { Pool } = require('pg');
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../../backend/.env') });
+require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+
+// Log the database configuration being used
+console.log('Database Configuration:');
+console.log(`Host: ${process.env.DB_HOST || 'localhost'}`);
+console.log(`Port: ${process.env.DB_PORT || 5500}`);
+console.log(`User: ${process.env.DB_USER || 'postgres'}`);
+console.log(`Database: ${process.env.DB_NAME || 'postgres'}`);
+console.log(`Password: ${process.env.DB_PASSWORD ? '******' : 'not set'}`);
 
 // PostgreSQL connection pool
 const pool = new Pool({
@@ -8,7 +16,7 @@ const pool = new Pool({
   user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME || 'postgres',
-  port: parseInt(process.env.DB_PORT) || 5432
+  port: parseInt(process.env.DB_PORT) || 5500
 });
 
 // Test the database connection

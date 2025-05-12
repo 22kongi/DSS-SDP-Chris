@@ -13,7 +13,8 @@
     "test:coverage": "jest --coverage",
     "test-email": "node backend/utils/testEmail.js",
     "migrate": "node db/migrations/runPostgresMigrations.js",
-    "db-explore": "node db-explorer.js"
+    "db-explore": "node db-explorer.js",
+    "check-db": "node check-tables.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "bcrypt": "^5.1.1",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "express-session": "^1.18.1",
     "mysql": "^2.18.1",
     "nodemailer": "^7.0.3",
     "nodemon": "^3.1.10",

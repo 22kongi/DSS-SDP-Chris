@@ -2,6 +2,26 @@
 
 A secure, privacy-focused platform with role-based access (users, admins, super-admins).
 
+## 🔍 Database Troubleshooting
+
+If you're experiencing database connectivity issues, we've created diagnostic tools to help:
+
+1. Check database connection and tables:
+   ```bash
+   npm run check-db
+   ```
+
+2. See detailed troubleshooting guides:
+   ```
+   DATABASE.md         # Database setup and configuration guide
+   README-DB-TEST.md   # Step-by-step testing instructions
+   ```
+
+3. Test direct database operations:
+   ```bash
+   node test-db-write.js
+   ```
+
 ## Features
 
 - Secure user authentication with role-based access control
@@ -40,7 +60,7 @@ A secure, privacy-focused platform with role-based access (users, admins, super-
    ```
 
 3. Configure environment variables
-   - Create a `.env` file in the `/backend` directory based on the following template:
+   - Create a `.env` file in the root directory based on the following template:
    ```
    PEPPER=your_secret_pepper_string
    EMAIL_USER=your_gmail_address@gmail.com
@@ -50,11 +70,27 @@ A secure, privacy-focused platform with role-based access (users, admins, super-
    DB_HOST=localhost
    DB_USER=postgres
    DB_PASSWORD=your_postgres_password
-   DB_NAME=secureblog_roles_v2
-   DB_PORT=5432
+   DB_NAME=postgres
+   DB_PORT=5500
+
+   # Session Configuration
+   SESSION_SECRET=your_session_secret
    ```
 
+   > **IMPORTANT**: The PostgreSQL port has changed to 5500, and we now use the default 'postgres' database.
+
 4. Set up PostgreSQL database and email delivery
+   ```
+   # Check database connection first
+   npm run check-db
+
+   # Create required tables
+   psql -U postgres -d postgres -p 5500 -f create-tables.sql
+
+   # Or if using a different client, run the SQL from create-tables.sql
+   ```
+
+   Alternatively, you can run the setup script:
    ```
    npm run setup
    ```
@@ -66,7 +102,15 @@ A secure, privacy-focused platform with role-based access (users, admins, super-
 
 ### Running the Application
 
-1. Start the server
+1. Create a test admin user (for easy login)
+   ```
+   node simple-login-fix.js
+   ```
+   This creates an admin account with:
+   - Username: admin
+   - Password: Admin123!
+
+2. Start the server
    ```
    npm start
    ```
@@ -75,7 +119,12 @@ A secure, privacy-focused platform with role-based access (users, admins, super-
    npm run dev
    ```
 
-2. Access the application at http://localhost:5500
+3. Access the application at http://localhost:8000
+
+   Important URLs:
+   - Home page: http://localhost:8000/
+   - Login page: http://localhost:8000/itslogin.html
+   - Register page: http://localhost:8000/register.html
 
 ## Authentication Flow
 
